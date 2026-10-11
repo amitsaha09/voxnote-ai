@@ -1,0 +1,14 @@
+# Secrets — NEVER upload these
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Your audio/video files (personal + large)
+uploads/
+recordings/
+
+# Local vector database
+vector_db/

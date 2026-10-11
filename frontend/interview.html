@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06090f">
 <title>VoxNote AI — Interview Evaluator</title>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="bg-orbs"></div>
+<div class="curtain" aria-hidden="true"></div>
+<canvas id="fx-dust" aria-hidden="true"></canvas>
+<div class="beam" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <nav class="nav">
   <div class="container nav-inner">
@@ -17,15 +22,18 @@
       <span class="brand-mark">✦</span>
       <span><span class="brand-name">VoxNote AI</span><span class="brand-sub">Video intelligence</span></span>
     </a>
-    <a class="nav-link" href="index.html">← All modes</a>
+    <div class="nav-right"><span class="tc tc-live" aria-hidden="true">00:00:00:00</span><a class="nav-link" href="index.html">← All modes</a></div>
   </div>
 </nav>
 
 <main class="container">
   <div class="page-head">
-    <div class="kicker">Interview evaluator</div>
-    <h1>Get <span class="gradient-text">judged.</span></h1>
-    <p class="page-sub">Upload an interview recording. Three AI judges score every answer — technical, communication, depth — then a head judge delivers the verdict.</p>
+    <div>
+      <div class="kicker">Interview evaluator</div>
+      <h1>Get <span class="outline-text">judged.</span></h1>
+      <p class="page-sub">Upload an interview recording. Three AI judges score every answer — technical, communication, depth — then a head judge delivers the verdict.</p>
+    </div>
+    <div class="head-poster"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><img src="img/poster-interview.gif" alt="Three judge meters rising to their scores beside a head-judge dial"></div>
   </div>
 
   <section class="panel">
@@ -57,8 +65,9 @@
   </section>
 
   <section id="progress" class="panel progress-panel" style="display:none">
-    <div class="spinner"></div>
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div><div class="progress-title">The panel is deliberating…</div><div id="stage" class="progress-stage">Starting…</div></div>
+    <span class="sweep" aria-hidden="true"></span>
   </section>
 
   <section id="error-panel" class="panel error-panel" style="display:none">
@@ -94,12 +103,12 @@
           <p id="r-sentiment-note" class="stat-note"></p>
         </div>
         <div>
-          <h4 class="stat-h">Talk time & pace</h4>
+          <h4 class="stat-h">Talk time &amp; pace</h4>
           <div id="r-speaking"></div>
           <p id="r-speaking-note" class="stat-note"></p>
         </div>
       </div>
-      <h4 class="stat-h" style="margin-top:18px">Confidence</h4>
+      <h4 class="stat-h" style="margin-top:22px">Confidence</h4>
       <div class="meter-row">
         <div class="meter"><div id="r-confidence-fill" class="meter-fill"></div></div>
         <span id="r-confidence-val" class="meter-val"></span>
@@ -120,8 +129,9 @@
   </section>
 </main>
 
-<footer class="footer">VOXNOTE AI · TURN VIDEO INTO KNOWLEDGE</footer>
+<footer class="footer">VoxNote AI. Turn video into knowledge.</footer>
 <script src="js/app.js"></script>
 <script src="js/interview.js"></script>
+<script src="js/fx.js"></script>
 </body>
 </html>

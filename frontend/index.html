@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06090f">
 <title>VoxNote AI — Video Intelligence Studio</title>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="bg-orbs"></div>
+<div class="curtain" aria-hidden="true"></div>
+<canvas id="fx-dust" aria-hidden="true"></canvas>
+<div class="beam" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <nav class="nav">
   <div class="container nav-inner">
@@ -17,46 +22,68 @@
       <span class="brand-mark">✦</span>
       <span><span class="brand-name">VoxNote AI</span><span class="brand-sub">Video intelligence</span></span>
     </a>
+    <div class="nav-right"><span class="tc tc-live" aria-hidden="true">00:00:00:00</span></div>
   </div>
 </nav>
 
 <main class="container">
   <section class="hero">
-    <div class="eyebrow">✧ Your personal video intelligence studio</div>
-    <h1>From hours of video<br>to <span class="gradient-text">clear thinking.</span></h1>
-    <p class="hero-copy">Transform recordings and YouTube videos into summaries, decisions, and action items — or run a mock interview through a 3-judge AI panel and get scored like the real thing.</p>
+    <div class="frame">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <canvas id="hero-wave" aria-hidden="true"></canvas>
+      <div class="hud hud-l" aria-hidden="true"><span class="rec-dot"></span><span>REC</span><span class="tc tc-live">00:00:00:00</span></div>
+      <div class="hud hud-r" aria-hidden="true">Your personal video intelligence studio</div>
+      <h1><span class="h1-line outline">From hours of video</span><span class="h1-line solid">to clear thinking.</span></h1>
+      <p class="hero-copy">Transform recordings and YouTube videos into summaries, decisions, and action items — or run a mock interview through a 3-judge AI panel and get scored like the real thing.</p>
+      <div class="hero-cta">
+        <a class="btn btn-link" href="video.html">Open the studio</a>
+        <a class="btn btn-ghost btn-link" href="interview.html">Judge an interview</a>
+      </div>
+      <div class="caption" aria-hidden="true"><span class="cap-tag" id="cap-tag">Decision</span><span class="cap-tc" id="cap-tc">00:04:24</span><span id="cap-text"></span></div>
+    </div>
   </section>
 
-  <section class="mode-grid">
-    <a class="mode-card" href="video.html">
-      <div class="mode-icon">◈</div>
-      <h2>Video Intelligence</h2>
-      <p>Paste a YouTube link or upload a recording. Get a transcript, executive summary, action items, key decisions — plus a chat you can interrogate.</p>
-      <span class="mode-cta">Open studio →</span>
-    </a>
-    <a class="mode-card" href="interview.html">
-      <div class="mode-icon">🎯</div>
-      <h2>Interview Evaluator</h2>
-      <p>Upload an interview recording. A panel of three AI judges scores every answer on technical correctness, communication, and depth — with timestamps.</p>
-      <span class="mode-cta">Start evaluation →</span>
-    </a>
-    <a class="mode-card" href="prep.html">
-      <div class="mode-icon">📋</div>
-      <h2>Interview Prep</h2>
-      <p>Upload your resume, paste the job description. Get interview questions tailored to you for this role — plus a scored review of your GitHub profile.</p>
-      <span class="mode-cta">Build my prep pack →</span>
-    </a>
-    <div class="mode-card disabled">
-      <div class="mode-icon">●</div>
-      <h2>Live Capture</h2>
-      <p>Record your mic + system audio during a real class or meeting, straight from this app. No bots joining your calls.</p>
-      <span class="mode-cta">Coming soon</span>
+  <section class="modes">
+    <h2 class="section-head">Four modes, one studio</h2>
+    <div class="mode-grid">
+      <a class="mode-card" href="video.html" style="--accent:#ffb454">
+        <div class="poster"><img src="img/poster-video.gif" alt="Animated waveform with a playhead and transcript lines filling in" loading="lazy"></div>
+        <div class="mode-body">
+          <h2>Video Intelligence</h2>
+          <p>Paste a YouTube link or upload a recording. Get a transcript, executive summary, action items, key decisions — plus a chat you can interrogate.</p>
+          <span class="mode-cta">Open studio</span>
+        </div>
+      </a>
+      <a class="mode-card" href="interview.html" style="--accent:#5ee6d6">
+        <div class="poster"><img src="img/poster-interview.gif" alt="Three judge meters rising to their scores beside a head-judge dial" loading="lazy"></div>
+        <div class="mode-body">
+          <h2>Interview Evaluator</h2>
+          <p>Upload an interview recording. A panel of three AI judges scores every answer on technical correctness, communication, and depth — with timestamps.</p>
+          <span class="mode-cta">Start evaluation</span>
+        </div>
+      </a>
+      <a class="mode-card" href="prep.html" style="--accent:#b096ff">
+        <div class="poster"><img src="img/poster-prep.gif" alt="A resume being scanned while tailored interview questions appear" loading="lazy"></div>
+        <div class="mode-body">
+          <h2>Interview Prep</h2>
+          <p>Upload your resume, paste the job description. Get interview questions tailored to you for this role — plus a scored review of your GitHub profile.</p>
+          <span class="mode-cta">Build my prep pack</span>
+        </div>
+      </a>
+      <div class="mode-card disabled" style="--accent:#ff5a6a">
+        <div class="poster"><img src="img/poster-live.gif" alt="Two live audio channels, microphone and system, on standby" loading="lazy"></div>
+        <div class="mode-body">
+          <h2>Live Capture</h2>
+          <p>Record your mic + system audio during a real class or meeting, straight from this app. No bots joining your calls.</p>
+          <span class="mode-cta">Coming soon</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="how">
-    <div class="kicker">How it works</div>
-    <div class="how-grid">
+    <h2 class="section-head">How it works</h2>
+    <div class="strip">
       <div class="how-step"><span>01</span><h3>Drop a source</h3><p>YouTube URL or a recorded file — handled the same way.</p></div>
       <div class="how-step"><span>02</span><h3>AI transcribes</h3><p>Local Whisper turns speech into timestamped text.</p></div>
       <div class="how-step"><span>03</span><h3>Get the verdict</h3><p>Summaries, action items — or a full judge-panel scorecard.</p></div>
@@ -64,6 +91,7 @@
   </section>
 </main>
 
-<footer class="footer">VOXNOTE AI · TURN VIDEO INTO KNOWLEDGE</footer>
+<footer class="footer">VoxNote AI. Turn video into knowledge.</footer>
+<script src="js/fx.js"></script>
 </body>
 </html>

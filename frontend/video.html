@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06090f">
 <title>VoxNote AI — Video Intelligence</title>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="bg-orbs"></div>
+<div class="curtain" aria-hidden="true"></div>
+<canvas id="fx-dust" aria-hidden="true"></canvas>
+<div class="beam" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <nav class="nav">
   <div class="container nav-inner">
@@ -17,15 +22,18 @@
       <span class="brand-mark">✦</span>
       <span><span class="brand-name">VoxNote AI</span><span class="brand-sub">Video intelligence</span></span>
     </a>
-    <a class="nav-link" href="index.html">← All modes</a>
+    <div class="nav-right"><span class="tc tc-live" aria-hidden="true">00:00:00:00</span><a class="nav-link" href="index.html">← All modes</a></div>
   </div>
 </nav>
 
 <main class="container">
   <div class="page-head">
-    <div class="kicker">Video intelligence</div>
-    <h1>Analyze a <span class="gradient-text">video</span></h1>
-    <p class="page-sub">YouTube link or upload — get a transcript, summary, decisions, and a chat over the content.</p>
+    <div>
+      <div class="kicker">Video intelligence</div>
+      <h1>Analyze <span class="outline-text">a video</span></h1>
+      <p class="page-sub">YouTube link or upload — get a transcript, summary, decisions, and a chat over the content.</p>
+    </div>
+    <div class="head-poster"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><img src="img/poster-video.gif" alt="Animated waveform with a playhead and transcript lines filling in"></div>
   </div>
 
   <section class="panel">
@@ -57,8 +65,9 @@
   </section>
 
   <section id="progress" class="panel progress-panel" style="display:none">
-    <div class="spinner"></div>
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div><div class="progress-title">Working on your video…</div><div id="stage" class="progress-stage">Starting…</div></div>
+    <span class="sweep" aria-hidden="true"></span>
   </section>
 
   <section id="error-panel" class="panel error-panel" style="display:none">
@@ -89,11 +98,8 @@
       <div class="panel"><div class="result-heading"><span class="result-icon">?</span><div><div class="result-title">Open questions</div><div class="result-desc">Topics needing follow-up</div></div></div><div id="r-questions" class="rich-text"></div></div>
     </div>
 
-    <div class="panel">
-      <div class="result-heading"><span class="result-icon">▤</span><div><div class="result-title">Full transcript</div><div class="result-desc">The source text</div></div></div>
-      <pre id="r-transcript" class="transcript-box"></pre>
-      <button id="dl-transcript" class="btn btn-ghost">⬇ Download transcript (.txt)</button>
-    </div>
+    <div class="panel"><div class="result-heading"><span class="result-icon">▤</span><div><div class="result-title">Full transcript</div><div class="result-desc">The source text</div></div></div><pre id="r-transcript" class="transcript-box"></pre>
+      <button id="dl-transcript" class="btn btn-ghost">⬇ Download transcript (.txt)</button></div>
 
     <div class="panel">
       <div class="result-heading"><span class="result-icon">✦</span><div><div class="result-title">Ask your video</div><div class="result-desc">Answers grounded in the transcript</div></div></div>
@@ -106,8 +112,9 @@
   </section>
 </main>
 
-<footer class="footer">VOXNOTE AI · TURN VIDEO INTO KNOWLEDGE</footer>
+<footer class="footer">VoxNote AI. Turn video into knowledge.</footer>
 <script src="js/app.js"></script>
 <script src="js/video.js"></script>
+<script src="js/fx.js"></script>
 </body>
 </html>
