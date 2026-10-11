@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxNote AI — Video Intelligence</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="bg-orbs"></div>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">✦</span>
+      <span><span class="brand-name">VoxNote AI</span><span class="brand-sub">Video intelligence</span></span>
+    </a>
+    <a class="nav-link" href="index.html">← All modes</a>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="page-head">
+    <div class="kicker">Video intelligence</div>
+    <h1>Analyze a <span class="gradient-text">video</span></h1>
+    <p class="page-sub">YouTube link or upload — get a transcript, summary, decisions, and a chat over the content.</p>
+  </div>
+
+  <section class="panel">
+    <form id="analyze-form">
+      <div class="source-tabs">
+        <button type="button" id="tab-url" class="source-tab active">🔗 YouTube link</button>
+        <button type="button" id="tab-file" class="source-tab">📁 Upload file</button>
+      </div>
+      <div id="url-wrap">
+        <input type="url" id="source-url" class="text-input" placeholder="https://www.youtube.com/watch?v=…">
+      </div>
+      <div id="file-wrap" style="display:none">
+        <label class="dropzone">
+          <input type="file" id="source-file" accept=".mp4,.mov,.mkv,.webm,.mp3,.wav,.m4a" hidden>
+          <span class="drop-icon">⬆</span>
+          <span id="file-label">Choose an audio or video file…</span>
+        </label>
+      </div>
+      <div class="form-row">
+        <label class="field">Transcript language
+          <select id="language" class="text-input">
+            <option value="english">English</option>
+            <option value="hinglish">Hinglish</option>
+          </select>
+        </label>
+        <button type="submit" class="btn">✦ Analyze video</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="progress" class="panel progress-panel" style="display:none">
+    <div class="spinner"></div>
+    <div><div class="progress-title">Working on your video…</div><div id="stage" class="progress-stage">Starting…</div></div>
+  </section>
+
+  <section id="error-panel" class="panel error-panel" style="display:none">
+    <strong>Something went wrong.</strong>
+    <p id="error-msg"></p>
+  </section>
+
+  <section id="results" style="display:none">
+    <div class="result-head">
+      <div><div class="kicker">Your latest report</div><h2 id="r-title"></h2></div>
+      <span class="status-pill"><span class="dot"></span> Analysis ready</span>
+    </div>
+
+    <div class="metrics">
+      <div class="metric-card"><div class="metric-label">Transcript</div><div class="metric-value" id="m-words">–</div><div class="metric-note">words captured</div></div>
+      <div class="metric-card"><div class="metric-label">Summary</div><div class="metric-value">✓</div><div class="metric-note">executive brief</div></div>
+      <div class="metric-card"><div class="metric-label">Insights</div><div class="metric-value">3</div><div class="metric-note">actions · decisions · questions</div></div>
+      <div class="metric-card"><div class="metric-label">Chat</div><div class="metric-value">Ready</div><div class="metric-note">ask the video</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel"><div class="result-heading"><span class="result-icon">✧</span><div><div class="result-title">Executive summary</div><div class="result-desc">The essential story, without the noise</div></div></div><div id="r-summary" class="rich-text"></div></div>
+      <div class="panel"><div class="result-heading"><span class="result-icon">↗</span><div><div class="result-title">Action items</div><div class="result-desc">Tasks to take forward</div></div></div><div id="r-actions" class="rich-text"></div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel"><div class="result-heading"><span class="result-icon">◈</span><div><div class="result-title">Key decisions</div><div class="result-desc">Important choices identified</div></div></div><div id="r-decisions" class="rich-text"></div></div>
+      <div class="panel"><div class="result-heading"><span class="result-icon">?</span><div><div class="result-title">Open questions</div><div class="result-desc">Topics needing follow-up</div></div></div><div id="r-questions" class="rich-text"></div></div>
+    </div>
+
+    <div class="panel">
+      <div class="result-heading"><span class="result-icon">▤</span><div><div class="result-title">Full transcript</div><div class="result-desc">The source text</div></div></div>
+      <pre id="r-transcript" class="transcript-box"></pre>
+      <button id="dl-transcript" class="btn btn-ghost">⬇ Download transcript (.txt)</button>
+    </div>
+
+    <div class="panel">
+      <div class="result-heading"><span class="result-icon">✦</span><div><div class="result-title">Ask your video</div><div class="result-desc">Answers grounded in the transcript</div></div></div>
+      <div id="chat-log" class="chat-log"></div>
+      <form id="chat-form" class="chat-form">
+        <input type="text" id="chat-input" class="text-input" placeholder="Ask something about this video…" autocomplete="off">
+        <button type="submit" class="btn">Ask</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">VOXNOTE AI · TURN VIDEO INTO KNOWLEDGE</footer>
+<script src="js/app.js"></script>
+<script src="js/video.js"></script>
+</body>
+</html>

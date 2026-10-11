@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxNote AI — Interview Prep</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="bg-orbs"></div>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">✦</span>
+      <span><span class="brand-name">VoxNote AI</span><span class="brand-sub">Video intelligence</span></span>
+    </a>
+    <a class="nav-link" href="index.html">← All modes</a>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="page-head">
+    <div class="kicker">Interview prep</div>
+    <h1>Walk in <span class="gradient-text">ready.</span></h1>
+    <p class="page-sub">Upload your resume, paste the job description, add your GitHub — get interview questions tailored to <em>you</em> for <em>this</em> role, plus a scored GitHub profile review.</p>
+  </div>
+
+  <section class="panel">
+    <form id="prep-form">
+      <label class="field" style="margin-bottom:16px">Resume (PDF)
+        <label class="dropzone">
+          <input type="file" id="resume-file" accept=".pdf" hidden>
+          <span class="drop-icon">📄</span>
+          <span id="resume-label">Choose your resume PDF…</span>
+        </label>
+      </label>
+      <label class="field" style="margin-bottom:16px">Job description
+        <textarea id="jd-text" class="text-input" rows="7" placeholder="Paste the job description here…"></textarea>
+      </label>
+      <div class="form-row">
+        <label class="field">GitHub username <span style="font-weight:400">(optional)</span>
+          <input type="text" id="github-username" class="text-input" placeholder="octocat" style="min-width:220px">
+        </label>
+        <button type="submit" class="btn">✦ Generate my prep</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="progress" class="panel progress-panel" style="display:none">
+    <div class="spinner"></div>
+    <div><div class="progress-title">Building your prep pack…</div><div id="stage" class="progress-stage">Starting…</div></div>
+  </section>
+
+  <section id="error-panel" class="panel error-panel" style="display:none">
+    <strong>Something went wrong.</strong>
+    <p id="error-msg"></p>
+  </section>
+
+  <section id="results" style="display:none">
+    <div class="result-head">
+      <div><div class="kicker">Your prep pack</div><h2>Tailored interview questions</h2></div>
+      <span class="status-pill"><span class="dot"></span> Ready</span>
+    </div>
+    <div id="r-questions"></div>
+
+    <div id="github-section" style="display:none">
+      <h2 class="section-title">GitHub profile review</h2>
+      <div class="panel">
+        <div class="github-head">
+          <div>
+            <div class="result-title" id="gh-name"></div>
+            <a id="gh-link" class="nav-link" target="_blank" rel="noopener"></a>
+          </div>
+          <div class="github-score"><span id="gh-score"></span><small>/100</small></div>
+        </div>
+        <p id="gh-summary" class="rich-text" style="margin:12px 0"></p>
+        <div class="two-col">
+          <div><div class="result-title" style="margin-bottom:8px">💪 Strengths</div><ul id="gh-strengths" class="plain-list"></ul></div>
+          <div><div class="result-title" style="margin-bottom:8px">🎯 Gaps</div><ul id="gh-gaps" class="plain-list"></ul></div>
+        </div>
+        <div id="gh-meta" class="github-meta"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">VOXNOTE AI · TURN VIDEO INTO KNOWLEDGE</footer>
+<script src="js/app.js"></script>
+<script src="js/prep.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxNote AI — Interview Evaluator</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="bg-orbs"></div>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">✦</span>
+      <span><span class="brand-name">VoxNote AI</span><span class="brand-sub">Video intelligence</span></span>
+    </a>
+    <a class="nav-link" href="index.html">← All modes</a>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="page-head">
+    <div class="kicker">Interview evaluator</div>
+    <h1>Get <span class="gradient-text">judged.</span></h1>
+    <p class="page-sub">Upload an interview recording. Three AI judges score every answer — technical, communication, depth — then a head judge delivers the verdict.</p>
+  </div>
+
+  <section class="panel">
+    <form id="eval-form">
+      <div class="source-tabs">
+        <button type="button" id="tab-url" class="source-tab active">🔗 YouTube link</button>
+        <button type="button" id="tab-file" class="source-tab">📁 Upload file</button>
+      </div>
+      <div id="url-wrap">
+        <input type="url" id="source-url" class="text-input" placeholder="https://www.youtube.com/watch?v=…">
+      </div>
+      <div id="file-wrap" style="display:none">
+        <label class="dropzone">
+          <input type="file" id="source-file" accept=".mp4,.mov,.mkv,.webm,.mp3,.wav,.m4a" hidden>
+          <span class="drop-icon">⬆</span>
+          <span id="file-label">Choose your interview recording…</span>
+        </label>
+      </div>
+      <div class="form-row">
+        <label class="field">Transcript language
+          <select id="language" class="text-input">
+            <option value="english">English</option>
+            <option value="hinglish">Hinglish</option>
+          </select>
+        </label>
+        <button type="submit" class="btn">🎯 Evaluate interview</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="progress" class="panel progress-panel" style="display:none">
+    <div class="spinner"></div>
+    <div><div class="progress-title">The panel is deliberating…</div><div id="stage" class="progress-stage">Starting…</div></div>
+  </section>
+
+  <section id="error-panel" class="panel error-panel" style="display:none">
+    <strong>Something went wrong.</strong>
+    <p id="error-msg"></p>
+  </section>
+
+  <section id="results" style="display:none">
+    <div class="result-head">
+      <div><div class="kicker">Judge panel report</div><h2 id="r-title"></h2></div>
+      <span class="status-pill"><span class="dot"></span> Evaluation ready</span>
+    </div>
+
+    <div class="metrics">
+      <div class="metric-card"><div class="metric-label">Questions</div><div class="metric-value" id="m-total">–</div><div class="metric-note">Q&A pairs found</div></div>
+      <div class="metric-card"><div class="metric-label">Accuracy</div><div class="metric-value" id="m-acc">–</div><div class="metric-note" id="m-acc-note">correct answers</div></div>
+      <div class="metric-card"><div class="metric-label">Avg score</div><div class="metric-value" id="m-avg">–</div><div class="metric-note">head-judge weighted</div></div>
+      <div class="metric-card"><div class="metric-label">Needs work</div><div class="metric-value" id="m-bad">–</div><div class="metric-note">incorrect answers</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel"><div class="result-heading"><span class="result-icon">💪</span><div><div class="result-title">Strengths</div><div class="result-desc">Highest-scoring answers</div></div></div><ul id="r-strengths" class="plain-list"></ul></div>
+      <div class="panel"><div class="result-heading"><span class="result-icon">🎯</span><div><div class="result-title">Weaknesses</div><div class="result-desc">Lowest-scoring — review these</div></div></div><ul id="r-weaknesses" class="plain-list"></ul></div>
+    </div>
+
+    <h2 class="section-title">Session statistics</h2>
+    <div class="panel">
+      <div class="result-heading"><span class="result-icon">📊</span><div><div class="result-title">How the interview felt</div><div class="result-desc">Tone, pace, and delivery — Fireflies-style</div></div></div>
+      <div class="two-col">
+        <div>
+          <h4 class="stat-h">Sentiment of answers</h4>
+          <div id="r-sentiment"></div>
+          <p id="r-sentiment-note" class="stat-note"></p>
+        </div>
+        <div>
+          <h4 class="stat-h">Talk time & pace</h4>
+          <div id="r-speaking"></div>
+          <p id="r-speaking-note" class="stat-note"></p>
+        </div>
+      </div>
+      <h4 class="stat-h" style="margin-top:18px">Confidence</h4>
+      <div class="meter-row">
+        <div class="meter"><div id="r-confidence-fill" class="meter-fill"></div></div>
+        <span id="r-confidence-val" class="meter-val"></span>
+      </div>
+    </div>
+
+    <h2 class="section-title">Per-question breakdown</h2>
+    <div id="r-questions"></div>
+
+    <div class="panel">
+      <div class="result-heading"><span class="result-icon">✦</span><div><div class="result-title">Ask your interview</div><div class="result-desc">Answers grounded in the transcript</div></div></div>
+      <div id="chat-log" class="chat-log"></div>
+      <form id="chat-form" class="chat-form">
+        <input type="text" id="chat-input" class="text-input" placeholder="Ask about an answer, a moment, a decision…" autocomplete="off">
+        <button type="submit" class="btn">Ask</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">VOXNOTE AI · TURN VIDEO INTO KNOWLEDGE</footer>
+<script src="js/app.js"></script>
+<script src="js/interview.js"></script>
+</body>
+</html>
